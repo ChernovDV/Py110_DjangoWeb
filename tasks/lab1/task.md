@@ -45,7 +45,16 @@
 долгота (`q=<lat>,<lon>`), как пример `q=51.52,-0.11`
 
 ##### Самостоятельно
-
+# {"location":{"name":"London","region":"City of London, Greater London",
+# "country":"United Kingdom","lat":51.52,"lon":-0.11,"tz_id":"Europe/London",
+# "localtime_epoch":1702834223,"localtime":"2023-12-17 17:30"},
+# "current":{"last_updated_epoch":1702834200,"last_updated":"2023-12-17 17:30",
+# "temp_c":10.0,"temp_f":50.0,"is_day":0,"condition":{"text":"Partly cloudy",
+# "icon":"//cdn.weatherapi.com/weather/64x64/night/116.png","code":1003},
+# "wind_mph":11.9,"wind_kph":19.1,"wind_degree":240,"wind_dir":"WSW",
+# "pressure_mb":1032.0,"pressure_in":30.47,"precip_mm":0.0,"precip_in":0.0,
+# "humidity":76,"cloud":75,"feelslike_c":7.5,"feelslike_f":45.6,"vis_km":10.0,
+# "vis_miles":6.0,"uv":1.0,"gust_mph":18.1,"gust_kph":29.2}}
 Через браузер получите данные о погоде с использованием вашего ключа и желаемой области
 
 Ниже приведен пример запроса для получения данных о погоде для Санкт-Петербурга
@@ -54,14 +63,30 @@
 
 ![2.png](pic_for_task/2.png)
 
+# {"location":{"name":"Saint Petersburg","region":"Saint Petersburg City",
+# "country":"Russia","lat":59.93,"lon":30.31,"tz_id":"Europe/Moscow",
+# "localtime_epoch":1702835591,"localtime":"2023-12-17 20:53"},
+# "current":{"last_updated_epoch":1702835100,"last_updated":"2023-12-17 20:45",
+# "temp_c":1.0,"temp_f":33.8,"is_day":0,"condition":{"text":"Clear",
+# "icon":"//cdn.weatherapi.com/weather/64x64/night/113.png","code":1000},
+# "wind_mph":13.6,"wind_kph":22.0,"wind_degree":270,
+# "wind_dir":"W","pressure_mb":1004.0,"pressure_in":29.65,"precip_mm":0.0,
+# "precip_in":0.0,"humidity":86,"cloud":0,"feelslike_c":-4.1,"feelslike_f":24.6,
+# "vis_km":10.0,"vis_miles":6.0,"uv":1.0,"gust_mph":21.7,"gust_kph":34.9}}
+
 ##### *Создание запросов через команду curl*
 
-Также можно использовать команду `curl` в консоли, чтобы получить информацию от сайта. Для корректной работы необходимо
+Также можно использовать команду `curl` в консоли(`Terminal` PyCharm), чтобы получить информацию от сайта. Для корректной работы необходимо
 адрес обернуть в кавычки.
 
 ```cmd
 curl "https://api.weatherapi.com/v1/current.json?key=b4588e45fcc14bdb89d63200232109&q=59.93,30.31"
 ```
+# {"location":{"name":"Saint Petersburg","region":"Saint Petersburg City","country":"Russia","lat":59.93,"lon":30.31,"tz_id":"Europe/Moscow","localtime_epoch":170283
+# 6385,"localtime":"2023-12-17 21:06"},"current":{"last_updated_epoch":1702836000,"last_updated":"2023-12-17 21:00","temp_c":1.0,"temp_f":33.8,"is_day":0,"condition"
+# :{"text":"Clear","icon":"//cdn.weatherapi.com/weather/64x64/night/113.png","code":1000},"wind_mph":13.6,"wind_kph":22.0,"wind_degree":270,"wind_dir":"W","pressure_
+# mb":1004.0,"pressure_in":29.65,"precip_mm":0.0,"precip_in":0.0,"humidity":86,"cloud":0,"feelslike_c":-3.9,"feelslike_f":25.0,"vis_km":10.0,"vis_miles":6.0,"uv":1.0
+# ,"gust_mph":20.3,"gust_kph":32.6}}
 
 ![3.png](pic_for_task/3.png)
 
@@ -79,12 +104,12 @@ curl --insecure "https://api.weatherapi.com/v1/current.json?key=b4588e45fcc14bdb
 
 ##### *Создание запросов через модуль requests*
 
-У Python есть сторонний модуль requests для работы с запросами. Сделаем запрос с использованием Python console PyCharm
+У Python есть сторонний модуль `requests` для работы с запросами. Сделаем запрос с использованием `Python Console` PyCharm
 
 ```python
 import requests
 
-key = ""  # TODO подставить ваш ключ к API
+key = "5d591e2cb44a4539b59115302231112"  # TODO подставить ваш ключ к API
 lat = "59.93"  # широта в градусах
 lon = "30.31"  # долгота в градусах
 
@@ -92,7 +117,17 @@ url = f"https://api.weatherapi.com/v1/current.json?key={key}&q={lat},{lon}"
 response = requests.get(url)  # отправление GET запроса и получение ответа от сервера
 print(response.json())  # получение JSON из ответа
 ```
-
+# {'location': {'name': 'Saint Petersburg', 'region': 'Saint Petersburg City', 
+# 'country': 'Russia', 'lat': 59.93, 'lon': 30.31, 'tz_id': 'Europe/Moscow', 
+# 'localtime_epoch': 1702836853, 'localtime': '2023-12-17 21:14'}, 
+# 'current': {'last_updated_epoch': 1702836000, 'last_updated': '2023-12-17 21:00', 
+# 'temp_c': 1.0, 'temp_f': 33.8, 'is_day': 0, 
+# 'condition': {'text': 'Clear', 
+# 'icon': '//cdn.weatherapi.com/weather/64x64/night/113.png', 'code': 1000}, 
+# 'wind_mph': 13.6, 'wind_kph': 22.0, 'wind_degree': 270, 'wind_dir': 'W', 
+# 'pressure_mb': 1004.0, 'pressure_in': 29.65, 'precip_mm': 0.0, 'precip_in': 0.0, 
+# 'humidity': 86, 'cloud': 0, 'feelslike_c': -3.9, 'feelslike_f': 25.0, 'vis_km': 10.0, 
+# 'vis_miles': 6.0, 'uv': 1.0, 'gust_mph': 20.3, 'gust_kph': 32.6}}
 ![4.png](pic_for_task/4.png)
 
 #### 1.2 Использование ключа в заголовке запроса
@@ -129,6 +164,7 @@ print(response.json())  # получение JSON из ответа
 
 И получим, что нет доступа, так как ключ к API необходимо передавать через заголовок, а через адресную строку это 
 передать не выйдет
+# {"message":"forbidden"}
 
 ![10.png](pic_for_task/10.png)
 
@@ -146,7 +182,17 @@ print(response.json())  # получение JSON из ответа
 
 ![11.png](pic_for_task/11.png)
 
-В случае снова получении ошибки 
+Важное замечание! У Яндекс погоды есть два тарифа тестовый (на 14 дней) и бесплатный (бессрочный, но с ограничением в 50 запросов в день).
+Отличаются эти тарифы ссылками на которые нужно посылать запрос:
+
+* Тариф «Тестовый». `https://api.weather.yandex.ru/v2/forecast?lat=59.93&lon=30.31`
+* Тариф «Погода на вашем сайте» `https://api.weather.yandex.ru/v2/informers?lat=59.93&lon=30.31`
+
+Отличаются они ограничениями на число запросов, и определенным функционалом. Если планируете пользоваться им далее, то в будущем придётся перейти
+на бесплатный тариф, а у него часть функционала недоступна (об этом будет рассказано в пункте 1.3). 
+Если самостоятельно перешли на тариф «Погода на вашем сайте», то необходимо использовать `informers` вместо `forecast`
+
+В случае если при отправки запроса через `curl` получили ошибку `curl: (35) schannel: next InitializeSecurityContext failed`
 
 ```cmd
 curl: (35) schannel: next InitializeSecurityContext failed: Unknown error (0x80092012) - Функция отзыва не смогла произвести проверку отзыва для сертификата.
@@ -159,11 +205,17 @@ curl: (35) schannel: next InitializeSecurityContext failed: Unknown error (0x800
 ##### *Создание запросов через модуль requests*
 
 Для работы с заголовками у `requests` есть параметр `headers` в который в виде словаря передаются заголовки и их значения
-
+# {"now":1702840009,"now_dt":"2023-12-17T19:06:49.942157Z","info":{"n":true,"geoid":2,
+# "url":"https://yandex.ru/pogoda/2?lat=59.93\u0026lon=30.31","lat":59.93,"lon":3
+# 0.31,"tzinfo":{"name":"Europe/Moscow","abbr":"MSK","dst":false,"offset":10800},
+# "def_pressure_mm":759,"def_pressure_pa":1011,"slug":"2","zoom":10,"nr":true,"ns":tru
+# e,"nsr":true,"p":false,"f":true,"_h":false},"geo_object":{"district":{"id":120602,"name":
+# "округ Адмиралтейский"},"locality":{"id":2,"name":"Санкт-Петербург"},"prov
+# и т.д.
 ```python
 import requests
 
-key = ""  # TODO подставьте значение вашего ключа доступа к API
+key = "f9352eca-83a1-4caf-8934-ef95c56b050b"  # TODO подставьте значение вашего ключа доступа к API
 lat = "59.93"  # широта в градусах
 lon = "30.31"  # долгота в градусах
 
@@ -175,6 +227,14 @@ print(response.json())
 ```
 ![12.png](pic_for_task/12.png)
 
+# {'now': 1702840580, 'now_dt': '2023-12-17T19:16:20.246639Z', 'info': {'n': True, 'geoid': 2,
+# 'url': 'https://yandex.ru/pogoda/2?lat=59.93&lon=30.31', 'lat': 59.93, 'lon': 30.31, 
+# 'tzinfo': {'name': 'Europe/Moscow', 'abbr': 'MSK', 'dst': False, 'offset': 10800}, 
+# 'def_pressure_mm': 759, 'def_pressure_pa': 1011, 'slug': '2', 'zoom': 10, 'nr': True, 
+# 'ns': True, 'nsr': True, 'p': False, 'f': True, '_h': False}, 'geo_object': {'district': 
+# {'id': 120602, 'name': 'округ Адмиралтейский'}, 'locality': 
+# {'id': 2, 'name': 'Санкт-Петербург'}, 'province': {'id': 2, 'name': 'Санкт-Петербург'},
+# и т.д.
 
 #### 1.3 Реализация функции работы с API 
 
@@ -232,6 +292,10 @@ print(response.json())
 Пример работы функции `current_weather` для API Яндекс Погода
 
 ![17.png](pic_for_task/17.png)
+
+# {'city': 'Санкт-Петербург', 'time': '00:26', 'temp': 1, 'feels_like_temp': -4, 
+# 'pressure': 752, 'humidity': 83, 'wind_speed': 4.6, 'wind_gust': 9.8, 
+# 'wind_dir': 'юго - западное'}
 
 ### 2. Создание коммитов и отправление изменений на github
 
