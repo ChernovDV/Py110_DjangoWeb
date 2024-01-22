@@ -1,42 +1,21 @@
 {% extends 'store/base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block title %}
+<title> {{ product.name }}</title>
+{% endblock %}
 
-
-	{% block content %}
-	 <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-10 mb-5 text-center">
-                    <ul class="product-category">
-
-                        {% if product.category == 'Овощи' %}
-                        <li><a href="{% url 'store:products_page_view' product.html %}?category=Овощи">Овощи</a></li>
-                        {% endif %}
-
-                    </ul>
+{% block content %}
+    <div class="hero-wrap hero-bread" style="background-image: url({% static 'store/images/bg_1.jpg' %});">
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <p class="breadcrumbs"><span class="mr-2"></span></p>
+                    <h1 class="mb-0 bread">Продукты</h1>
                 </div>
             </div>
-	 </div>
-
-	{% for product in products %}
-		<div class="col-md-6 col-lg-3 ftco-animate">
-			<div class="product">
-				<a href="{% url 'store:products_page_view' product.html %}" class="img-prod">
-					<img class="img-fluid" src="{% static product.url %}" alt="Colorlib Template">
-					{% if product.discount %}
-						<span class="status">{{ product.discount }}</span>
-					{% else %}
-						<div class="overlay"></div>
-					{% endif %}
-				</a>
-			</div>
-		</div>
-	{% endfor %}
-
-
-
+        </div>
+    </div>
 
     <section class="ftco-section">
     	<div class="container">
@@ -62,7 +41,16 @@
 								<a href="#" class="mr-2" style="color: #000;">{{product.sold_value}} <span style="color: #bbb;">Продано</span></a>
 							</p>
 						</div>
-    				<p class="price"><span><del>&#x20bd {{product.price_before}}</del> &#x20bd {{product.price_after}}</span></p>
+						<div class = "pricing">
+    						<p class="price">
+								{% if product.discount %}
+								<span class="mr-2 price-dc"><s>&#x20bd {{product.price_before}}</s></span>
+								<span class="price-sale">&#x20bd {{product.price_after}}</span>
+								{% else %}
+								<span>&#x20bd {{product.price_before}}</span>
+								{% endif %}
+							</p>
+						</div>
     				<p>{{product.description}}
 						</p>
 						<div class="row mt-4">
@@ -76,9 +64,9 @@
 	                    <option value="">Большой</option>
 	                    <option value="">Очень большой</option>
 	                  </select>
-	                </div>
-		            </div>
-							</div>
+	                	</div>
+		            	</div>
+						</div>
 							<div class="w-100"></div>
 							<div class="input-group col-md-6 d-flex mb-3">
 	             	<span class="input-group-btn mr-2">
@@ -106,26 +94,36 @@
 
     <section class="ftco-section">
     	<div class="container">
-				<div class="row justify-content-center mb-3 pb-3">
-          <div class="col-md-12 heading-section text-center ftco-animate">
-          	<span class="subheading">Продукты</span>
-            <h2 class="mb-4">Товары той же категории</h2>
-          </div>
-        </div>
+			<div class="row justify-content-center mb-3 pb-3">
+          		<div class="col-md-12 heading-section text-center ftco-animate">
+          			<span class="subheading">Продукты</span>
+            		<h2 class="mb-4">Товары той же категории</h2>
+          		</div>
+        	</div>
     	</div>
+
     	<div class="container">
     		<div class="row">
+				{% for category_product in category_products %}
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="green_beans.html" class="img-prod"><img class="img-fluid" src="../static/store/images/product-3.jpg" alt="Colorlib Template">
-	    					<div class="overlay"></div>
+
+    					<a href="{% static category_product.url %}" class="image-popup">
+							<img src ="{% static category_product.url %}" class = "img-fluid" alt="Colorlib Template">
 	    				</a>
+						<div class="overlay"></div>
+
     					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="green_beans.html">Стручковая фасоль</a></h3>
+    						<h3><a href= "{% static category_product.url %}" >{{category_product.name}}</a></h3>
     						<div class="d-flex">
     							<div class="pricing">
 		    						<p class="price">
-										<span>&#x20bd 250.00</span>
+										{% if product.discount %}
+										<span class="mr-2 price-dc"><s>&#x20bd {{product.price_before}}</s></span>
+										<span class="price-sale">&#x20bd {{product.price_after}}</span>
+										{% else %}
+										<span>&#x20bd {{product.price_before}}</span>
+										{% endif %}
 									</p>
 		    					</div>
 	    					</div>
@@ -146,201 +144,8 @@
     					</div>
     				</div>
     			</div>
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="purple_cabbage.html" class="img-prod"><img class="img-fluid" src="../static/store/images/product-4.jpg" alt="Colorlib Template">
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="purple_cabbage.html">Краснокочанная капуста</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price">
-										<span>&#x20bd 90.00</span>
-									</p>
-		    					</div>
-	    					</div>
-    						<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center" data-product-id="4">
-	    								<span><i class="ion-ios-add-circle-outline" data-product-id="4"></i></span>
-	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart-empty" data-product-id="4" data-state="inactive" data-action="toggle"></i></span>
-	    							</a>
-    							</div>
-								<div class="custom-popup-message" data-product-id="4"></div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-				<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="tomatoes.html" class="img-prod"><img class="img-fluid" src="../static/store/images/product-5.jpg" alt="Colorlib Template">
-    						<span class="status">25%</span>
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="tomatoes.html">Помидоры</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price">
-										<span class="mr-2 price-dc">&#x20bd 240.00</span>
-										<span class="price-sale">&#x20bd 180.00</span>
-									</p>
-		    					</div>
-	    					</div>
-	    					<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center" data-product-id="5">
-	    								<span><i class="ion-ios-add-circle-outline" data-product-id="5"></i></span>
-	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart-empty" data-product-id="5" data-state="inactive" data-action="toggle"></i></span>
-	    							</a>
-    							</div>
-								<div class="custom-popup-message" data-product-id="5"></div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-				<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="broccoli.html" class="img-prod"><img class="img-fluid" src="../static/store/images/product-6.jpg" alt="Colorlib Template">
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="broccoli.html">Брокколи</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price">
-										<span>&#x20bd 320.00</span>
-									</p>
-		    					</div>
-	    					</div>
-    						<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center" data-product-id="6">
-	    								<span><i class="ion-ios-add-circle-outline" data-product-id="6"></i></span>
-	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart-empty" data-product-id="6" data-state="inactive" data-action="toggle"></i></span>
-	    							</a>
-    							</div>
-								<div class="custom-popup-message" data-product-id="6"></div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-
-<!-- ########################################################################################################################-->
-				<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="strawberry.html" class="img-prod"><img class="img-fluid" src="../static/store/images/product-2.jpg" alt="Colorlib Template">
-	    					<div class="overlay"></div>
-	    				</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="strawberry.html">Клубника</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price">
-										<span>&#x20bd 500.00</span>
-									</p>
-		    					</div>
-	    					</div>
-    						<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center" data-product-id="2">
-	    								<span><i class="ion-ios-add-circle-outline" data-product-id="2"></i></span>
-	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart-empty" data-product-id="2" data-state="inactive" data-action="toggle"></i></span>
-	    							</a>
-    							</div>
-								<div class="custom-popup-message" data-product-id="2"></div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-
-				<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="fruit_juice" class="img-prod"><img class="img-fluid" src="../static/store/images/product-8.jpg" alt="Colorlib Template">
-	    					<div class="overlay"></div>
-	    				</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="strawberry.html">Клубника</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price">
-										<span>&#x20bd 500.00</span>
-									</p>
-		    					</div>
-	    					</div>
-    						<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center" data-product-id="2">
-	    								<span><i class="ion-ios-add-circle-outline" data-product-id="2"></i></span>
-	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart-empty" data-product-id="2" data-state="inactive" data-action="toggle"></i></span>
-	    							</a>
-    							</div>
-								<div class="custom-popup-message" data-product-id="2"></div>
-    						</div>
-    					</div>
-    				</div>
-				</div>
-
-				<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="fruit_juice" class="img-prod"><img class="img-fluid" src="../static/store/images/product-10.jpg" alt="Colorlib Template">
-	    					<div class="overlay"></div>
-	    				</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="strawberry.html">Клубника</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price">
-										<span>&#x20bd 500.00</span>
-									</p>
-		    					</div>
-	    					</div>
-    						<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center" data-product-id="2">
-	    								<span><i class="ion-ios-add-circle-outline" data-product-id="2"></i></span>
-	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart-empty" data-product-id="2" data-state="inactive" data-action="toggle"></i></span>
-	    							</a>
-    							</div>
-								<div class="custom-popup-message" data-product-id="2"></div>
-    						</div>
-    					</div>
-    				</div>
-				</div>
-
+				{% endfor %}
 			</div>
 		</div>
-
     </section>
 	{% endblock %}
