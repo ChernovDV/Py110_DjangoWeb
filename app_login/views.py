@@ -15,6 +15,7 @@ def login_view(request):
             return redirect("/")
         return render(request, "login/login.html", context={"error": "Неверные данные"})
 
+
 def logout_view(request):
     if request.method == "GET":
         logout(request)  # Функция разлогинивает пользователя
